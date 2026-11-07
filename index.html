@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARTEMIS // Lunar Touchdown</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #030508;
+      color: #dce4f0;
+      font-family: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', 'Segoe UI Mono', Menlo, Consolas, monospace;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #app {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hud {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 32px;
+      z-index: 10;
+    }
+
+    .hud-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(210, 224, 245, 0.72);
+    }
+
+    .hud-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hud-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      color: rgba(240, 246, 255, 0.92);
+    }
+
+    .hud-sub {
+      font-size: 10px;
+      color: rgba(168, 188, 216, 0.55);
+    }
+
+    .hud-telemetry {
+      display: flex;
+      gap: 28px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hud-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .hud-metric-label {
+      font-size: 9px;
+      color: rgba(150, 172, 204, 0.5);
+    }
+
+    .hud-metric-value {
+      font-size: 12px;
+      color: rgba(232, 240, 252, 0.88);
+    }
+
+    .hud-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(180, 198, 224, 0.65);
+    }
+
+    .hud-phase-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      background: rgba(8, 13, 22, 0.55);
+      border: 1px solid rgba(180, 205, 240, 0.18);
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hud-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ff9c42;
+      box-shadow: 0 0 8px rgba(255, 156, 66, 0.85);
+    }
+
+    .hud-progress-wrap {
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+
+    .hud-progress-bar {
+      width: 100%;
+      height: 2px;
+      background: rgba(180, 202, 235, 0.16);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hud-progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(160, 200, 255, 0.7), rgba(255, 168, 88, 0.95));
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div class="hud" aria-hidden="true">
+    <div class="hud-top">
+      <div class="hud-brand">
+        <div class="hud-title">ARTEMIS III // HLS</div>
+        <div class="hud-sub">SHACKLETON RIM — 89.9° S  0.0° E</div>
+      </div>
+      <div class="hud-telemetry">
+        <div class="hud-metric">
+          <span class="hud-metric-label">ALTITUDE</span>
+          <span class="hud-metric-value" id="hud-alt">042.0 m</span>
+        </div>
+        <div class="hud-metric">
+          <span class="hud-metric-label">VERT VEL</span>
+          <span class="hud-metric-value" id="hud-vel">-06.4 m/s</span>
+        </div>
+        <div class="hud-metric">
+          <span class="hud-metric-label">THROTTLE</span>
+          <span class="hud-metric-value" id="hud-thr">000 %</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-bottom">
+      <div class="hud-phase-pill">
+        <span class="hud-dot" id="hud-dot"></span>
+        <span id="hud-phase">PHASE // DESCENT</span>
+      </div>
+      <div class="hud-progress-wrap">
+        <span id="hud-time">T+ 00.0s / 18.0s</span>
+        <div class="hud-progress-bar">
+          <div class="hud-progress-fill" id="hud-progress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
