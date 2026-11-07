@@ -24,8 +24,8 @@ export function createCameraRig() {
     { t: 11.5, pos: new THREE.Vector3(7.6, 1.55, 10.2), lookOffset: new THREE.Vector3(-1.1, 2.4, -3.5), fov: 41 },
     // t = 14.0: Engine cutoff & settle transition into hero composition
     { t: 14.0, pos: new THREE.Vector3(6.4, 2.15, 12.6), lookOffset: new THREE.Vector3(-4.2, 4.6, -16.0), fov: 38 },
-    // t = 18.0: Quiet monumental hero shot with Artemis lander on right and distant blue Earth on left
-    { t: 18.0, pos: new THREE.Vector3(5.8, 2.45, 13.8), lookOffset: new THREE.Vector3(-5.2, 5.1, -20.0), fov: 36 },
+    // t = 18.0: Quiet monumental hero shot — lander on the left third, Earth clear on the right
+    { t: 18.0, pos: new THREE.Vector3(9.6, 3.1, 19.4), lookOffset: new THREE.Vector3(1.4, 5.4, -21.0), fov: 38 },
   ];
 
   const currentPos = new THREE.Vector3();

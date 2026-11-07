@@ -79,8 +79,8 @@ function createPlumeMesh() {
   const plumeGroup = new THREE.Group();
   plumeGroup.name = 'MainEnginePlume';
   // Origin at engine bell exit (y = 0 in local group), cone extends downward (-Y)
-  const outerHeight = 6.8;
-  const outerGeo = new THREE.CylinderGeometry(0.32, 2.35, outerHeight, 40, 28, true);
+  const outerHeight = 4.3;
+  const outerGeo = new THREE.CylinderGeometry(0.30, 1.55, outerHeight, 40, 28, true);
   outerGeo.translate(0, -outerHeight * 0.5, 0);
 
   const outerMat = new THREE.ShaderMaterial({
@@ -163,19 +163,19 @@ function createPlumeMesh() {
 
         // Soft edge fade
         float edge = pow(abs(dot(normalize(vNormalView), normalize(vViewDir))), 0.75);
-        float verticalFade = smoothstep(0.0, 0.06, flow) * pow(max(0.0, 1.0 - flow), 1.45);
+        float verticalFade = smoothstep(0.0, 0.06, flow) * pow(max(0.0, 1.0 - flow), 2.2);
 
-        vec3 hotCore = vec3(3.4, 2.9, 2.3);
-        vec3 midAmber = vec3(2.2, 1.15, 0.38);
-        vec3 outerBlue = vec3(0.45, 0.62, 1.15);
+        vec3 hotCore = vec3(2.15, 1.85, 1.45);
+        vec3 midAmber = vec3(1.55, 0.82, 0.28);
+        vec3 outerBlue = vec3(0.38, 0.52, 0.98);
 
         vec3 col = mix(hotCore, midAmber, smoothstep(0.05, 0.55, flow));
         col = mix(col, outerBlue, smoothstep(0.55, 0.98, flow) * 0.55);
-        col += hotCore * shock * 0.75;
+        col += hotCore * shock * 0.55;
         col *= (0.78 + 0.45 * turb);
 
-        float alpha = verticalFade * (0.28 + 0.72 * edge) * (0.65 + 0.35 * turb) * uThrottle;
-        gl_FragColor = vec4(col * uThrottle, alpha * 0.85);
+        float alpha = verticalFade * (0.04 + 0.96 * edge) * (0.65 + 0.35 * turb) * uThrottle;
+        gl_FragColor = vec4(col * uThrottle, alpha * 0.66);
       }
     `,
     transparent: true,
