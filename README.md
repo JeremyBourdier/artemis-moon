@@ -32,6 +32,14 @@ npm run preview    # sirve el build
 npm run test:e2e   # Playwright
 ```
 
+> **Windows / PowerShell 5.1:** `&&` no es un separador válido antes de PowerShell 7.
+> Usa una línea por comando, o `;` en lugar de `&&`:
+> ```powershell
+> cd $HOME\projects\artemis-moon
+> npm run dev
+> ```
+> Con `pwsh` (PowerShell 7+) o Git Bash, `&&` funciona igual que en los ejemplos.
+
 ### Parámetros de URL
 
 | Param | Efecto |
